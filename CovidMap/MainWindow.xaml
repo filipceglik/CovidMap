@@ -32,37 +32,12 @@
           <Border BorderBrush="LightGray" BorderThickness="0 0 0 1" Width="260">
             <Grid Height="50">
               <StackPanel Height="50">
-                <TextBlock Text="La Casita Grill"/>
-                <StackPanel Orientation="Horizontal">
-                  <TextBlock Text="4,5" Foreground="#DDFF6F0B" Margin="1" FontSize="10"/>
-                  <materialDesign:PackIcon Kind="Star" Foreground="#DDFF6F0B" Margin="1" VerticalAlignment="Center" Width="12" Height="12"/>
-                  <materialDesign:PackIcon Kind="Star" Foreground="#DDFF6F0B" Margin="1" VerticalAlignment="Center" Width="12" Height="12"/>
-                  <materialDesign:PackIcon Kind="Star" Foreground="#DDFF6F0B" Margin="1" VerticalAlignment="Center" Width="12" Height="12"/>
-                  <materialDesign:PackIcon Kind="Star" Foreground="#DDFF6F0B" Margin="1" VerticalAlignment="Center" Width="12" Height="12"/>
-                  <materialDesign:PackIcon Kind="StarHalf" Foreground="#DDFF6F0B" Margin="1" VerticalAlignment="Center" Width="12" Height="12"/>
-                </StackPanel>
-                <TextBlock Text="Open until 6:00PM" Opacity="0.7"/>
+                <ItemsControl ItemsSource="{Binding Daily}">
+                <TextBlock Text="{Binding country.name,StringFormat=Confirmed: {0}}"/>
+                <TextBlock Text="Test" Opacity="0.7"/>
+                </ItemsControl>
               </StackPanel>
               <Image HorizontalAlignment="Right" Width="50" Height="50" Source="Assets/healthy-food-1328279-1599x1066.jpg" Stretch="UniformToFill" />
-            </Grid>
-          </Border>
-        </ListViewItem>
-        <ListViewItem>
-          <Border BorderBrush="LightGray" BorderThickness="0 0 0 1" Width="260">
-            <Grid Height="50">
-              <StackPanel Height="50">
-                <TextBlock Text="The Pizza"/>
-                <StackPanel Orientation="Horizontal">
-                  <TextBlock Text="3,5" Foreground="#DDFF6F0B" Margin="1" FontSize="10"/>
-                  <materialDesign:PackIcon Kind="Star" Foreground="#DDFF6F0B" Margin="1" VerticalAlignment="Center" Width="12" Height="12"/>
-                  <materialDesign:PackIcon Kind="Star" Foreground="#DDFF6F0B" Margin="1" VerticalAlignment="Center" Width="12" Height="12"/>
-                  <materialDesign:PackIcon Kind="Star" Foreground="#DDFF6F0B" Margin="1" VerticalAlignment="Center" Width="12" Height="12"/>
-                  <materialDesign:PackIcon Kind="StarHalf" Foreground="#DDFF6F0B" Margin="1" VerticalAlignment="Center" Width="12" Height="12"/>
-                  <materialDesign:PackIcon Kind="StarOutline" Foreground="#DDFF6F0B" Margin="1" VerticalAlignment="Center" Width="12" Height="12"/>
-                </StackPanel>
-                <TextBlock Text="Open until 10:00PM" Opacity="0.7"/>
-              </StackPanel>
-              <Image HorizontalAlignment="Right" Width="50" Height="50" Source="Assets/mexican-food-1534948-1600x1200.jpg" Stretch="UniformToFill" />
             </Grid>
           </Border>
         </ListViewItem>
