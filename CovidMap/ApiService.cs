@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using RestSharp;
 
 namespace CovidMap
@@ -8,7 +9,7 @@ namespace CovidMap
     public class ApiService
     {
         private readonly RestClient _restService = new RestClient("https://covid19-api.com/country/");
-        public IEnumerable<CovidData> GetLatestReportByCountryCode()
+        public IEnumerable<CountrySummary> GetLatestReportByCountryCode()
         {
             var request = new RestRequest("code", Method.GET)
                 .AddParameter("format","json")
@@ -22,7 +23,7 @@ namespace CovidMap
                 return null;
             }
 
-            return response.Data;
+            return JsonConvert.DeserializeObject<IEnumerable<CountrySummary>>(response.Content);
         }
     }
     public class CovidData
@@ -33,9 +34,7 @@ namespace CovidMap
     public class Country
     {
         public string name { get; set; }
-        public string code { get; set; }
-        public double latitude { get; set; }
-        public double longitude { get; set; }
+        
     }
 
     public class CountrySummary
@@ -44,7 +43,10 @@ namespace CovidMap
         public int recovered { get; set; }
         public int critical { get; set; }
         public int deaths { get; set; }
-        public Country country { get; set; }
+        public string country { get; set; }
+        public string code { get; set; }
+        public double latitude { get; set; }
+        public double longitude { get; set; }
         public DateTime lastChange { get; set; }
         public DateTime lastUpdate { get; set; }
     }
