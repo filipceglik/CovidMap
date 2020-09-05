@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using RestSharp;
 
@@ -25,10 +26,19 @@ namespace CovidMap
 
             return JsonConvert.DeserializeObject<IEnumerable<CountrySummary>>(response.Content);
         }
+
+        public CovidData getData(IEnumerable<CountrySummary> countrySummaries)
+        {
+            CovidData tmp = new CovidData();
+            tmp.Daily = countrySummaries;
+            tmp.gps = countrySummaries.Select(x => x.latitude.ToString() + ", " + x.longitude.ToString()).FirstOrDefault();
+            return tmp;
+        }
     }
     public class CovidData
     {
         public IEnumerable<CountrySummary> Daily { get; set; }
+        public string gps { get; set; }
     }
 
     public class Country

@@ -33,8 +33,14 @@
             <Grid Height="50">
               <StackPanel Height="50">
                 <ItemsControl ItemsSource="{Binding Daily}">
-                <TextBlock Text="{Binding country.name,StringFormat=Confirmed: {0}}"/>
-                <TextBlock Text="Test" Opacity="0.7"/>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <StackPanel>
+                        <TextBlock Text="{Binding country}"></TextBlock>
+                        <TextBlock Text="{Binding deaths,StringFormat=Deaths: {0}}"></TextBlock>
+                      </StackPanel>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
                 </ItemsControl>
               </StackPanel>
               <Image HorizontalAlignment="Right" Width="50" Height="50" Source="Assets/healthy-food-1328279-1599x1066.jpg" Stretch="UniformToFill" />
@@ -47,11 +53,10 @@
     <Button Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFlatButton}">
       <materialDesign:PackIcon Kind="Close"/>
     </Button>
-
-    <m:Map CredentialsProvider="AttsGkqIHCOIEA11KtQZDphl5bi8lppin64jeg-ZOOhiS4cdHA_EXJwHSbyZi4Xo" Mode="Road" Grid.Column="1" Grid.Row="1" ZoomLevel="16" Center="-23.1870304,-50.6606103">
+    <m:Map CredentialsProvider="AttsGkqIHCOIEA11KtQZDphl5bi8lppin64jeg-ZOOhiS4cdHA_EXJwHSbyZi4Xo" Mode="Road" Grid.Column="1" Grid.Row="1" ZoomLevel="6" Center="{Binding gps, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
       <Canvas
-        m:MapLayer.Position="-23.1870304,-50.6606103"
-        m:MapLayer.PositionOrigin="BottomCenter" Width="30" Height="30"
+        m:MapLayer.Position="{Binding Path=gps}"
+        m:MapLayer.PositionOrigin="{Binding Path=gps}" Width="30" Height="30"
         >
         <materialDesign:PackIcon Kind="MapMarker" Width="30" Height="30" Foreground="#FF3C3C3C"/>
       </Canvas>
