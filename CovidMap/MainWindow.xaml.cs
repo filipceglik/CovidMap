@@ -34,7 +34,15 @@ namespace CovidMap
 
         private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CovidMapObject.Center = ((CountrySummary) ListViewCountries.SelectedItem).gps;
+            try
+            {
+                CovidMapObject.Center = ((CountrySummary) ListViewCountries.SelectedItem).gps;
+            }
+            catch (NullReferenceException exception)
+            {
+                
+            }
+            
         }
 
         private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
