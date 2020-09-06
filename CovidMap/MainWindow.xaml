@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        Title="MainWindow" Height="600" Width="1080" WindowStyle="None" ResizeMode="NoResize" 
+        Title="MainWindow" Height="900" Width="1200" WindowStyle="None" ResizeMode="NoResize" 
         WindowStartupLocation="CenterScreen" Background="#FF3A3A3A">
   <Grid>
     <Grid.RowDefinitions>
@@ -27,18 +27,19 @@
           <materialDesign:PackIcon Kind="Search"/>
         </Button>
       </Grid>
-      <ListView ItemsSource="{Binding Daily}" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="True" Height="500" SelectionChanged="Selector_OnSelectionChanged" Name="ListViewCountries">
+      <ListView ItemsSource="{Binding Daily}" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="True" Height="800" SelectionChanged="Selector_OnSelectionChanged" Name="ListViewCountries">
         <ListView.ItemTemplate>
           <DataTemplate>
           <Border BorderBrush="LightGray" BorderThickness="0 0 0 1" Width="260">
-            <Grid Name="countryGrid" Height="90">
-              <StackPanel Height="90">
+            <Grid Name="countryGrid" Height="110">
+              <StackPanel Height="110">
                 <StackPanel>
-                  <TextBlock Text="{Binding country}"></TextBlock>
+                  <TextBlock FontSize="15" FontWeight="Bold" Text="{Binding country}"></TextBlock>
                   <TextBlock Text="{Binding confirmed,StringFormat=Confirmed: {0}}"></TextBlock>
                   <TextBlock Text="{Binding deaths,StringFormat=Deaths: {0}}"></TextBlock>
                   <TextBlock Text="{Binding critical,StringFormat=Critical: {0}}"></TextBlock>
                   <TextBlock Text="{Binding recovered,StringFormat=Recovered: {0}}"></TextBlock>
+                  <TextBlock Text="{Binding lastUpdate,StringFormat=Last updated: {0:yyyy-MM-dd}}"></TextBlock>
                 </StackPanel>
               </StackPanel>
             </Grid>
