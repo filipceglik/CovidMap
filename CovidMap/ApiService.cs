@@ -10,11 +10,16 @@ namespace CovidMap
     public class ApiService
     {
         private readonly RestClient _restService = new RestClient("https://covid19-api.com/country/");
-        public IEnumerable<CountrySummary> GetLatestReportByCountryCode()
+        private readonly JsonSerializerSettings _settings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            MissingMemberHandling = MissingMemberHandling.Ignore
+        };
+        public IEnumerable<CountrySummary> GetLatestReportByCountryCode(string countryCode)
         {
             var request = new RestRequest("code", Method.GET)
                 .AddParameter("format","json")
-                .AddParameter("code","it")
+                .AddParameter("code",countryCode)
                 .AddHeader("x-rapidapi-host", "covid-19-data.p.rapidapi.com")
                 .AddHeader("x-rapidapi-key", "no api key for you dear friend");
             var response = _restService.Execute<IEnumerable<CovidData>>(request);
@@ -24,7 +29,23 @@ namespace CovidMap
                 return null;
             }
 
-            return JsonConvert.DeserializeObject<IEnumerable<CountrySummary>>(response.Content);
+            return JsonConvert.DeserializeObject<IEnumerable<CountrySummary>>(response.Content, _settings);
+        }
+        
+        public IEnumerable<CountrySummary> GetLatestReportAllCountries()
+        {
+            var request = new RestRequest("all", Method.GET)
+                .AddParameter("format","json")
+                .AddHeader("x-rapidapi-host", "covid-19-data.p.rapidapi.com")
+                .AddHeader("x-rapidapi-key", "no api key for you dear friend");
+            var response = _restService.Execute<IEnumerable<CovidData>>(request);
+
+            if (!response.IsSuccessful)
+            {
+                return null;
+            }
+
+            return JsonConvert.DeserializeObject<IEnumerable<CountrySummary>>(response.Content, _settings);
         }
 
         public CovidData getData(IEnumerable<CountrySummary> countrySummaries)
@@ -39,6 +60,16 @@ namespace CovidMap
     {
         public IEnumerable<CountrySummary> Daily { get; set; }
         public string gps { get; set; }
+    }
+
+    public class AllCovidData
+    {
+        //public IEnumerable<>
+    }
+
+    public class AllSummary
+    {
+        
     }
 
     public class Country

@@ -11,7 +11,8 @@ namespace CovidMap
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = _apiService.getData(_apiService.GetLatestReportByCountryCode());
+            //DataContext = _apiService.getData(_apiService.GetLatestReportByCountryCode());
+            DataContext = _apiService.getData(_apiService.GetLatestReportAllCountries());
             Console.WriteLine();
         }
     }
