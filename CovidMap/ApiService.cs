@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MahApps.Metro.Converters;
+using Microsoft.Maps.MapControl.WPF;
 using Newtonsoft.Json;
 using RestSharp;
 
@@ -15,13 +17,14 @@ namespace CovidMap
             NullValueHandling = NullValueHandling.Ignore,
             MissingMemberHandling = MissingMemberHandling.Ignore
         };
+        private readonly string apiKey = "why even bother validating the key";
         public IEnumerable<CountrySummary> GetLatestReportByCountryCode(string countryCode)
         {
             var request = new RestRequest("code", Method.GET)
                 .AddParameter("format","json")
                 .AddParameter("code",countryCode)
                 .AddHeader("x-rapidapi-host", "covid-19-data.p.rapidapi.com")
-                .AddHeader("x-rapidapi-key", "no api key for you dear friend");
+                .AddHeader("x-rapidapi-key", apiKey);
             var response = _restService.Execute<IEnumerable<CovidData>>(request);
 
             if (!response.IsSuccessful)
@@ -37,7 +40,7 @@ namespace CovidMap
             var request = new RestRequest("all", Method.GET)
                 .AddParameter("format","json")
                 .AddHeader("x-rapidapi-host", "covid-19-data.p.rapidapi.com")
-                .AddHeader("x-rapidapi-key", "no api key for you dear friend");
+                .AddHeader("x-rapidapi-key", apiKey);
             var response = _restService.Execute<IEnumerable<CovidData>>(request);
 
             if (!response.IsSuccessful)
@@ -52,32 +55,14 @@ namespace CovidMap
         {
             CovidData tmp = new CovidData();
             tmp.Daily = countrySummaries;
-            tmp.gps = countrySummaries.Select(x => x.latitude.ToString() + ", " + x.longitude.ToString()).FirstOrDefault();
             return tmp;
         }
     }
     public class CovidData
     {
         public IEnumerable<CountrySummary> Daily { get; set; }
-        public string gps { get; set; }
     }
-
-    public class AllCovidData
-    {
-        //public IEnumerable<>
-    }
-
-    public class AllSummary
-    {
-        
-    }
-
-    public class Country
-    {
-        public string name { get; set; }
-        
-    }
-
+    
     public class CountrySummary
     {
         public int confirmed { get; set; }
@@ -90,5 +75,11 @@ namespace CovidMap
         public double longitude { get; set; }
         public DateTime lastChange { get; set; }
         public DateTime lastUpdate { get; set; }
+
+        public Location gps
+        {
+            get { return new Location(latitude,longitude); }
+            set { gps = value; }
+        }
     }
 }

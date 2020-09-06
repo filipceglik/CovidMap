@@ -21,39 +21,37 @@
 
     <StackPanel Grid.Row="1" Margin="10">
       <Grid>
-        <TextBox Background="White" Padding="10 0 25 0"/>
+        <TextBox Name="txtFilter" TextChanged="TextBoxBase_OnTextChanged" Background="White" Padding="10 0 25 0"/>
         <materialDesign:PackIcon Kind="MapMarker" VerticalAlignment="Center" Margin="2"/>
         <Button HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFlatButton}">
           <materialDesign:PackIcon Kind="Search"/>
         </Button>
       </Grid>
-      <ListView>
-        <ListViewItem>
+      <ListView ItemsSource="{Binding Daily}" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.CanContentScroll="True" Height="500" SelectionChanged="Selector_OnSelectionChanged" Name="ListViewCountries">
+        <ListView.ItemTemplate>
+          <DataTemplate>
           <Border BorderBrush="LightGray" BorderThickness="0 0 0 1" Width="260">
-            <Grid Height="50">
-              <StackPanel Height="50">
-                <ItemsControl ItemsSource="{Binding Daily}">
-                  <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                      <StackPanel>
-                        <TextBlock Text="{Binding country}"></TextBlock>
-                        <TextBlock Text="{Binding deaths,StringFormat=Deaths: {0}}"></TextBlock>
-                      </StackPanel>
-                    </DataTemplate>
-                  </ItemsControl.ItemTemplate>
-                </ItemsControl>
+            <Grid Name="countryGrid" Height="90">
+              <StackPanel Height="90">
+                <StackPanel>
+                  <TextBlock Text="{Binding country}"></TextBlock>
+                  <TextBlock Text="{Binding confirmed,StringFormat=Confirmed: {0}}"></TextBlock>
+                  <TextBlock Text="{Binding deaths,StringFormat=Deaths: {0}}"></TextBlock>
+                  <TextBlock Text="{Binding critical,StringFormat=Critical: {0}}"></TextBlock>
+                  <TextBlock Text="{Binding recovered,StringFormat=Recovered: {0}}"></TextBlock>
+                </StackPanel>
               </StackPanel>
-              <Image HorizontalAlignment="Right" Width="50" Height="50" Source="Assets/healthy-food-1328279-1599x1066.jpg" Stretch="UniformToFill" />
             </Grid>
           </Border>
-        </ListViewItem>
+          </DataTemplate>
+        </ListView.ItemTemplate>
       </ListView>
     </StackPanel>
 
     <Button Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignFlatButton}">
       <materialDesign:PackIcon Kind="Close"/>
     </Button>
-    <m:Map CredentialsProvider="AttsGkqIHCOIEA11KtQZDphl5bi8lppin64jeg-ZOOhiS4cdHA_EXJwHSbyZi4Xo" Mode="Road" Grid.Column="1" Grid.Row="1" ZoomLevel="6" Center="{Binding gps, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+    <m:Map x:Name="CovidMapObject" CredentialsProvider="NOPE" Mode="Road" Grid.Column="1" Grid.Row="1" ZoomLevel="6" Center="{Binding gps, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
       <Canvas
         m:MapLayer.Position="{Binding Path=gps}"
         m:MapLayer.PositionOrigin="{Binding Path=gps}" Width="30" Height="30"
