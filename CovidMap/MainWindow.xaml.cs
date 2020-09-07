@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Threading;
 
 namespace CovidMap
 {
@@ -15,6 +16,10 @@ namespace CovidMap
         {
             InitializeComponent();
             DataContext = _apiService.getData(_apiService.GetLatestReportAllCountries());
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0,15,0);
+            dispatcherTimer.Start();
         }
 
         public void FilterListView()
@@ -48,6 +53,12 @@ namespace CovidMap
         private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             FilterListView();
+        }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            DataContext = _apiService.getData(_apiService.GetLatestReportAllCountries());
+            
         }
     }
 }
