@@ -41,7 +41,7 @@
                   <TextBlock Text="{Binding deaths,StringFormat=Deaths: {0}}"></TextBlock>
                   <TextBlock Text="{Binding critical,StringFormat=Critical: {0}}"></TextBlock>
                   <TextBlock Text="{Binding recovered,StringFormat=Recovered: {0}}"></TextBlock>
-                  <TextBlock Text="{Binding lastUpdate,StringFormat=Last updated: {0:yyyy-MM-dd}}"></TextBlock>
+                  <TextBlock Text="{Binding lastUpdate,StringFormat=Last updated: {0:yyyy-MM-dd HH:mm}}"></TextBlock>
                 </StackPanel>
               </StackPanel>
             </Grid>

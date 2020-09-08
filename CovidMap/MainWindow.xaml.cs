@@ -18,7 +18,7 @@ namespace CovidMap
             DataContext = _apiService.getData(_apiService.GetLatestReportAllCountries());
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0,15,0);
+            dispatcherTimer.Interval = new TimeSpan(0,1,0);
             dispatcherTimer.Start();
         }
 
